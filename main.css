@@ -1,0 +1,43 @@
+*{ 
+    box-sizing: border-box; 
+}
+
+#canvas {
+    border: 3px solid black;
+}
+
+button {
+  background-color: #4CAF50; /* green */
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+button:hover {
+  background-color: #45a049;
+}
+
+#clear {
+      background-color: #c74040; /* green */
+      margin-top: -10px;
+}
+
+#predict {
+    background-color: #408ac7;
+}
+
+.button-box {
+    display: flex;
+    gap: 8px;
+}
+
+#prediction {
+    display: flex;
+    gap: 8px;
+}
