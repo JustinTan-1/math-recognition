@@ -40,4 +40,11 @@ button:hover {
 #prediction {
     display: flex;
     gap: 8px;
+    align-items: center;
+}
+
+.error {
+    display: flex;
+    color: red;
+    font-weight: bold;
 }

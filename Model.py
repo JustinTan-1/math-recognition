@@ -62,7 +62,7 @@ for class_name in classNames:
     test_counter = 0
     folder = os.path.join(data_dir, class_name)
     for image in os.listdir(folder):
-        if test_counter > 300:
+        if test_counter > 100:
             break
         processed_img = cv2.imread(os.path.join(folder, image), cv2.IMREAD_GRAYSCALE)
         if len(processed_img) != 0:
@@ -109,4 +109,4 @@ with torch.no_grad():
         total += label.size(0)
         correct += (prediction == label).sum().item() # Compares Tensors True = 1 and False = 0 then sums up all the trues
 print(f"Accuracy: {100 * correct/total}")
-torch.save(model.state_dict(), "./saved_model/model.pt")
+#torch.save(model.state_dict(), "./saved_model/model.pt")

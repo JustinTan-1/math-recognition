@@ -23,7 +23,7 @@ let symbols = {
     "infty": "∞",
     "int" : "∫",
     "lambda": "λ",
-    "ldots": "Idots",
+    "ldots": "...",
     "leq": "≤",
     "lim": "lim()",
     "log": "log()",
@@ -93,11 +93,12 @@ function clearCanvas() {
 
 
 function sendImage() {
-    canvas.toBlob((blob) => {
+    canvas.toBlob(async (blob) => {
         const data = new FormData()
         console.log(blob)
         data.append("file", blob)   
-        fetch(url, {
+        try {
+        let promise = await fetch(url, {
             method: "POST",
             body: data,
         })
@@ -118,6 +119,18 @@ function sendImage() {
                 prediction.appendChild(button)
             }   
         })
+    } catch (error) {
+        console.log("ERROR FETCHING BACKEND")
+        prediction.innerHTML = ""
+        const error_msg = document.createElement("div")
+        error_msg.textContent = "ERROR FETCHING BACKEND"
+        error_msg.className = "error"
+        prediction.appendChild(error_msg)
+        setTimeout(() => {
+            prediction.innerHTML = ""
+        }, "3000");
+    }
     })
 }
 
+ 
