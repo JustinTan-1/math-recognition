@@ -6,8 +6,9 @@ import numpy as np
 from PIL import Image
 import io
 import json
-from Recognition import Recognition2
+from backend.Recognition import Recognition2
 from sklearn.preprocessing import LabelEncoder
+import uvicorn
 
 
 app = FastAPI()
@@ -87,3 +88,5 @@ def center_image(image, size=45):
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
     return canvas
+
+uvicorn.run(app, port=8000, host="127.0.0.1")
