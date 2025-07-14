@@ -7,7 +7,7 @@ import cv2
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from sklearn.preprocessing import LabelEncoder
-from Recognition import Recognition2
+from backend.Recognition import Recognition2
 import numpy as np
 
 #Old model DO NOT USE

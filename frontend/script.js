@@ -94,6 +94,10 @@ function clearCanvas() {
 
 function sendImage() {
     canvas.toBlob(async (blob) => {
+        const loading_msg = document.createElement("div")
+        loading_msg.textContent = "Predicting..."
+        loading_msg.className = "loading"
+        prediction.appendChild(loading_msg)
         const data = new FormData()
         console.log(blob)
         data.append("file", blob)   

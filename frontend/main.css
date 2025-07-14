@@ -28,8 +28,16 @@ button:hover {
       margin-top: -10px;
 }
 
+#clear:hover { 
+    opacity: 0.9;
+}
+
 #predict {
     background-color: #408ac7;
+}
+
+#predict:hover { 
+    opacity: 0.9;
 }
 
 .button-box {
@@ -46,5 +54,10 @@ button:hover {
 .error {
     display: flex;
     color: red;
+    font-weight: bold;
+}
+.loading {
+    display: flex;
+    color: lightskyblue;
     font-weight: bold;
 }
