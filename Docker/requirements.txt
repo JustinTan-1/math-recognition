@@ -1,0 +1,7 @@
+uvicorn
+fastapi
+opencv-python
+scikit-learn
+torch
+pillow
+python-multipart

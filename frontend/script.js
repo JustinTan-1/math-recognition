@@ -120,6 +120,7 @@ function sendImage() {
             }   
         })
     } catch (error) {
+        console.log(error)
         console.log("ERROR FETCHING BACKEND")
         prediction.innerHTML = ""
         const error_msg = document.createElement("div")
