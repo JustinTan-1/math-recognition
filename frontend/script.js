@@ -4,6 +4,8 @@ const clear = document.getElementById("clear")
 const predict = document.getElementById("predict")
 const prediction = document.getElementById("prediction")
 
+let debounce = false
+
 let symbols = { 
     "+": "+",
     "-": "-",
@@ -43,8 +45,6 @@ let symbols = {
     "times": "⋅",
     "=": "="
 }
-
-console.log(symbols["alpha"])
 
 const url = "http://127.0.0.1:8000/"
 
@@ -94,47 +94,52 @@ function clearCanvas() {
 
 function sendImage() {
     canvas.toBlob(async (blob) => {
-        const loading_msg = document.createElement("div")
-        loading_msg.textContent = "Predicting..."
-        loading_msg.className = "loading"
-        prediction.appendChild(loading_msg)
-        const data = new FormData()
-        console.log(blob)
-        data.append("file", blob)   
-        try {
-        let promise = await fetch(url, {
-            method: "POST",
-            body: data,
-        })
-        .then((response) => {
-            return response.json()
-        })
-        .then((data)=> {
-            const response_array = JSON.parse(data.prediction)
-            console.log(data.prediction)
-            console.log(response_array.length)
-            prediction.innerHTML = ""
-            for (let i = 0; i < response_array.length; i++) {
-                const button = document.createElement("button")
-                button.textContent = symbols[response_array[i]]
-                button.addEventListener("click", (e) => {
-                navigator.clipboard.writeText(button.textContent);
+        if (debounce == false) {
+            debounce = true
+            const loading_msg = document.createElement("div")
+            loading_msg.textContent = "Predicting..."
+            loading_msg.className = "loading"
+            prediction.appendChild(loading_msg)
+            const data = new FormData()
+            console.log(blob)
+            data.append("file", blob)   
+            try {
+                let promise = await fetch(url, {
+                    method: "POST",
+                    body: data,
                 })
-                prediction.appendChild(button)
-            }   
-        })
-    } catch (error) {
-        console.log(error)
-        console.log("ERROR FETCHING BACKEND")
-        prediction.innerHTML = ""
-        const error_msg = document.createElement("div")
-        error_msg.textContent = "ERROR FETCHING BACKEND"
-        error_msg.className = "error"
-        prediction.appendChild(error_msg)
-        setTimeout(() => {
-            prediction.innerHTML = ""
-        }, "3000");
-    }
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data)=> {
+                    const response_array = JSON.parse(data.prediction)
+                    console.log(data.prediction)
+                    console.log(response_array.length)
+                    prediction.innerHTML = ""
+                    for (let i = 0; i < response_array.length; i++) {
+                        const button = document.createElement("button")
+                        button.textContent = symbols[response_array[i]]
+                        button.addEventListener("click", (e) => {
+                        navigator.clipboard.writeText(button.textContent);
+                        })
+                        prediction.appendChild(button)
+                    }   
+                    debounce = false
+                })
+            } catch (error) {
+                console.log(error)
+                console.log("ERROR FETCHING BACKEND")
+                prediction.innerHTML = ""
+                const error_msg = document.createElement("div")
+                error_msg.textContent = "ERROR FETCHING BACKEND"
+                error_msg.className = "error"
+                prediction.appendChild(error_msg)
+                setTimeout(() => {
+                    prediction.innerHTML = ""
+                    debounce = false
+                }, "3000");
+            }
+        }
     })
 }
 
