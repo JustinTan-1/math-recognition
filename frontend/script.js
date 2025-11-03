@@ -46,7 +46,7 @@ let symbols = {
   "=": "=",
 };
 
-const url = "http://127.0.0.1:8000/";
+const url = "https://math-recognition.onrender.com";
 
 ctx.fillStyle = "white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
